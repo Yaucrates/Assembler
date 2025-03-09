@@ -1,0 +1,14 @@
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/bin/Debug/net9.0/AssemblerProject
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/bin/Debug/net9.0/AssemblerProject.deps.json
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/bin/Debug/net9.0/AssemblerProject.runtimeconfig.json
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/bin/Debug/net9.0/AssemblerProject.dll
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/bin/Debug/net9.0/AssemblerProject.pdb
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/AssemblerProject.GeneratedMSBuildEditorConfig.editorconfig
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/AssemblerProject.AssemblyInfoInputs.cache
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/AssemblerProject.AssemblyInfo.cs
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/AssemblerProject.csproj.CoreCompileInputs.cache
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/AssemblerProject.dll
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/refint/AssemblerProject.dll
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/AssemblerProject.pdb
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/AssemblerProject.genruntimeconfig.cache
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/ref/AssemblerProject.dll
