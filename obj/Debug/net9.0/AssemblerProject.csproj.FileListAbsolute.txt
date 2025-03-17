@@ -12,3 +12,4 @@
 /Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/AssemblerProject.pdb
 /Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/AssemblerProject.genruntimeconfig.cache
 /Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/ref/AssemblerProject.dll
+/Users/yabdulhu/Desktop/projects/current-projects/AssemblerProject/obj/Debug/net9.0/AssemblerProject.sourcelink.json
