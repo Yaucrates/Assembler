@@ -31,6 +31,15 @@
         return RemoveComments(line).Trim();
     }
 
+    private static string ProcessSpecialCharacters(string str)
+    {
+        return str
+            .Substring(1, str.Length - 2) // Removes Quotes
+            .Replace("\\\\", "\\")
+            .Replace("\\n", "\n")
+            .Replace("\\\"", "\"");;
+    }
+
     private static string RemoveComments(string line)
     {
         int index = line.IndexOf('#');

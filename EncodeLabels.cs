@@ -48,11 +48,7 @@ public partial class Assembler
             throw new Exception("usage: stpush \"string\"");
         }
 
-        string str = arg
-            .Substring(1, arg.Length - 2) // Removes Quotes
-            .Replace("\\\\", "\\")
-            .Replace("\\n", "\n")
-            .Replace("\\\"", "\"");
+        string str = ProcessSpecialCharacters(arg);
         
         int total_instructions = (str.Length + 2) / 3; // same as Ceil(str.Length / 3)
         int size_of_instructions = total_instructions * INSTRUCTION_SIZE;
