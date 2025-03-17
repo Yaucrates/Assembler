@@ -1,10 +1,26 @@
-﻿using System.IO;
-
-public partial class Assembler
+﻿public partial class Assembler
 {
-    public static void Assemble(string input_file, string output_file)
+    public static void Assemble(string inputFile, string outputFile)
     {
-        Dictionary<string, int> EncodedLabels = EncodeLabels(input_file);
+        Dictionary<string, int> encodedLabels = EncodeLabels(inputFile);
+        List<IInstruction> instructions = ParseInstructions(inputFile, encodedLabels);
+
+        if (instructions.Count == 0) {
+            throw new Exception("No instructions were parsed from the input file.");
+        }
+
+        using (BinaryWriter writer = new BinaryWriter(File.Open(outputFile, FileMode.Create)))
+        {
+            writer.Write(0xefbeadde); // Magic Header
+
+            // Encode Instructions
+            foreach (IInstruction instruction in instructions) {
+                int binaryInstruction = instruction.Encode();
+                writer.Write(binaryInstruction);
+            }
+
+            // Pad with NOPs
+        }
     }
 
     private static string ProcessLine(string line)

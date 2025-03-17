@@ -1,7 +1,3 @@
-public interface IInstruction {
-    int Encode();
-}
-
 // Miscellaneous Instructions
 public class Exit : IInstruction {
     private readonly int _code;

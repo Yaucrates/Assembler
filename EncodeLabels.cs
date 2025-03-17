@@ -2,11 +2,11 @@ public partial class Assembler
 {
     public static Dictionary<string, int> EncodeLabels(string file)
     {
-        Dictionary<string, int> EncodedLabels = new Dictionary<string, int>();
-        int program_counter = 0;
+        Dictionary<string, int> encodedLabels = new Dictionary<string, int>();
+        int programCounter = 0;
 
         StreamReader sr = new StreamReader(file);
-        string? line = "";
+        string? line;
         while ((line = sr.ReadLine()) != null)
         {
             // Cleans up lines
@@ -21,15 +21,15 @@ public partial class Assembler
             if (line.EndsWith(':'))
             {
                 string label = line.Substring(0, line.Length - 1);
-                EncodedLabels[label] = program_counter;
+                encodedLabels[label] = programCounter;
                 continue;
             }
 
             // Handles Instruction
-            program_counter += SizeOfInstruction(line);
+            programCounter += SizeOfInstruction(line);
         }
 
-        return EncodedLabels;
+        return encodedLabels;
     }
 
     private static int SizeOfInstruction(string instruction)
