@@ -37,7 +37,7 @@ public partial class Assembler
         const int INSTRUCTION_SIZE = 4;
 
         // Handles PseudoInstructions
-        if (instruction.Split(' ')[0] != "stpush")
+        if (instruction.Split(' ')[0].ToUpper() != "STPUSH")
         {
             return INSTRUCTION_SIZE;
         }

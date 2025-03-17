@@ -195,15 +195,15 @@ public class Nop : IInstruction {
 // }
 
 // Unconditional Goto Instructions
-// public class Goto : IInstruction {
-//     private readonly int _offset;
-//     public Goto(int offset) {
-//         _offset = offset & 0x0FFFFFFF;
-//     }
-//     public int Encode() {
-//         return (0x7 << 28) | _offset;
-//     }
-// }
+public class Goto : IInstruction {
+    private readonly int _offset;
+    public Goto(int offset) {
+        _offset = offset & 0x0FFFFFFF;
+    }
+    public int Encode() {
+        return (0x7 << 28) | _offset;
+    }
+}
 
 // If Instructions
 // public class If : IInstruction {

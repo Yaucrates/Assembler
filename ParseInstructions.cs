@@ -1,16 +1,35 @@
 public partial class Assembler
 {
-    private static readonly Dictionary<string, Func<List<string>, IInstruction>> INSTRUCTIONS = new Dictionary<string, Func<List<string>, IInstruction>>()
+    private static readonly Dictionary<string, Func<List<string>, Dictionary<string, int>, int, IInstruction>> INSTRUCTIONS =
+    new Dictionary<string, Func<List<string>, Dictionary<string, int>, int, IInstruction>>()
     {
-        { "NOP", args =>
+        { "NOP", (args, _, _) =>
             {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to NOP.");
+                }
+
                 return new Nop();
             }
-        }
+        },
+        { "GOTO", (args, dict, pc) =>
+            {
+                if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to GOTO.");
+                }
+
+                string label = args[0];
+                int offset = dict[label] - pc;
+
+                return new Goto(offset);
+            }
+        },
     };
+
 
     private static List<IInstruction> ParseInstructions(string file, Dictionary<string, int> encodedLabels) {
         List<IInstruction> instructions = new List<IInstruction>();
+        int programCounter = 0;
 
         StreamReader sr = new StreamReader(file);
         string? line;
@@ -32,8 +51,10 @@ public partial class Assembler
             args.RemoveAt(0);
 
             var assemblyFunction = INSTRUCTIONS[instruction];
-            var assemblyCode = assemblyFunction(args);
+            var assemblyCode = assemblyFunction(args, encodedLabels, programCounter);
             instructions.Add(assemblyCode);
+
+            programCounter += SizeOfInstruction(line);
         }
 
         return instructions;
