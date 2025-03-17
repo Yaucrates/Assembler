@@ -9,6 +9,11 @@
             throw new Exception("No instructions were parsed from the input file.");
         }
 
+        // Pad to a multiple of 4 instructions with NOPs
+        while (instructions.Count % 4 != 0) {
+            instructions.Add( new Nop() );
+        }
+
         using (BinaryWriter writer = new BinaryWriter(File.Open(outputFile, FileMode.Create)))
         {
             writer.Write(0xefbeadde); // Magic Header
@@ -18,8 +23,6 @@
                 int binaryInstruction = instruction.Encode();
                 writer.Write(binaryInstruction);
             }
-
-            // Pad with NOPs
         }
     }
 
