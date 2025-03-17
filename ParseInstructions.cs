@@ -1,5 +1,14 @@
 public partial class Assembler
 {
+    private static readonly Dictionary<string, Func<List<string>, IInstruction>> INSTRUCTIONS = new Dictionary<string, Func<List<string>, IInstruction>>()
+    {
+        { "NOP", args =>
+            {
+                return new Nop();
+            }
+        }
+    };
+
     private static List<IInstruction> ParseInstructions(string file, Dictionary<string, int> encodedLabels) {
         List<IInstruction> instructions = new List<IInstruction>();
 
@@ -14,13 +23,17 @@ public partial class Assembler
                 continue;
             }
 
+            // Create each instruction
             List<string> args = SplitInstructions(line);
-            foreach (string arg in args) {
-                Console.WriteLine(arg);
+            string instruction = args[0].ToUpper();
+            if (!INSTRUCTIONS.ContainsKey(instruction)) {
+                throw new Exception($"Assembly instruction \"{args[0]}\" does not exist.");
             }
-            Console.WriteLine();
+            args.RemoveAt(0);
 
-            // Console.WriteLine(line);
+            var assemblyFunction = INSTRUCTIONS[instruction];
+            var assemblyCode = assemblyFunction(args);
+            instructions.Add(assemblyCode);
         }
 
         return instructions;
@@ -38,7 +51,7 @@ public partial class Assembler
                 break;
             }
 
-            string arg = line.Substring(0, endOfArg + 1);
+            string arg = line.Substring(0, endOfArg);
             args.Add(arg);
 
             line = ProcessLine( line.Substring(endOfArg + 1) );
