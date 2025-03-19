@@ -210,11 +210,11 @@ public class BinaryIf : IInstruction {
     private readonly int _offset;
     private readonly int _condition;
     public BinaryIf(int condition, int offset) {
-        _condition = condition & 0x7;
+        _condition = condition & 0b111;
         _offset = offset & 0x01FFFFFF;
     }
     public int Encode() {
-        return (0x8 << 28) | (_condition << 25) | _offset;
+        return (0b1000 << 28) | (_condition << 25) | _offset;
     }
 }
 

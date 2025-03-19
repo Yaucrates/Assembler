@@ -459,6 +459,9 @@ public partial class Assembler
 
                 string pcoStr = args[0];
                 int pco = StringToDecimal(pcoStr) ?? StringToHex(pcoStr) ?? labels[pcoStr];
+                if (args[1] == "5") {
+                    Console.WriteLine($"{args[0]} == {pco} -> {pco-pc}\n{args[1]}");
+                }
                 pco -= pc;
 
                 string condStr = args[1];
