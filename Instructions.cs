@@ -205,18 +205,18 @@ public class Goto : IInstruction {
     }
 }
 
-// If Instructions
-// public class If : IInstruction {
-//     private readonly int _offset;
-//     private readonly int _condition;
-//     public If(int condition, int offset) {
-//         _condition = condition & 0x7;
-//         _offset = offset & 0x01FFFFFF;
-//     }
-//     public int Encode() {
-//         return (0x8 << 28) | (_condition << 25) | _offset;
-//     }
-// }
+// BinaryIf Instructions
+public class BinaryIf : IInstruction {
+    private readonly int _offset;
+    private readonly int _condition;
+    public BinaryIf(int condition, int offset) {
+        _condition = condition & 0x7;
+        _offset = offset & 0x01FFFFFF;
+    }
+    public int Encode() {
+        return (0x8 << 28) | (_condition << 25) | _offset;
+    }
+}
 
 // Unary If Instructions
 public class UnaryIf : IInstruction {

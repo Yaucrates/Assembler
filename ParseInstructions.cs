@@ -424,17 +424,17 @@ public partial class Assembler
                 return new Dup(sro);
             }
         },
-        { "RET", (args, labels, pc) =>
+        { "RETURN", (args, labels, pc) =>
             {
                 if (args.Count == 0) {
                     return new Ret();
                 }
                 else if (args.Count != 1) {
-                    throw new Exception("Improper arguments passed to RET.");
+                    throw new Exception("Improper arguments passed to RETURN.");
                 }
 
                 string soStr = args[0];
-                int so = StringToDecimal(soStr) ?? throw new Exception("Inproper argument passed to RET.");
+                int so = StringToDecimal(soStr) ?? throw new Exception("Inproper argument passed to RETURN.");
 
                 return new Ret(so);
             }
@@ -451,18 +451,100 @@ public partial class Assembler
                 return new Call(offset);
             }
         },
-        // { "COMMAND", (args, labels, pc) =>
-        //     {
-        //         if (args.Count == 0) {
-        //             return new COMMAND();
-        //         }
-        //         else if (args.Count != 1) {
-        //             throw new Exception("Improper arguments passed to COMMAND.");
-        //         }
+        { "BINARYIF", (args, labels, pc) =>
+            {
+                if (args.Count != 2) {
+                    throw new Exception("Improper arguments passed to BINARYIF.");
+                }
 
-        //         return new COMMAND;
-        //     }
-        // },
+                string pcoStr = args[0];
+                int pco = StringToDecimal(pcoStr) ?? StringToHex(pcoStr) ?? labels[pcoStr];
+                pco -= pc;
+
+                string condStr = args[1];
+                int cond = StringToDecimal(condStr) ?? throw new Exception("Improper condition passed to BINARYIF");
+
+                return new BinaryIf(cond, pco);
+            }
+        },
+        { "IFEQ", (args, labels, pc) =>
+            {
+                if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to IFEQ.");
+                }
+
+                args.Add("0");
+                var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["BINARYIF"] : throw new Exception("Assembly instruction BINARYIF does not exist.");
+                var assemblyCode = assemblyFunction(args, labels, pc);
+                
+                return assemblyCode;
+            }
+        },
+        { "IFNE", (args, labels, pc) =>
+            {
+                if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to IFNE.");
+                }
+
+                args.Add("1");
+                var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["BINARYIF"] : throw new Exception("Assembly instruction BINARYIF does not exist.");
+                var assemblyCode = assemblyFunction(args, labels, pc);
+                
+                return assemblyCode;
+            }
+        },
+        { "IFLT", (args, labels, pc) =>
+            {
+                if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to IFLT.");
+                }
+
+                args.Add("2");
+                var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["BINARYIF"] : throw new Exception("Assembly instruction BINARYIF does not exist.");
+                var assemblyCode = assemblyFunction(args, labels, pc);
+                
+                return assemblyCode;
+            }
+        },
+        { "IFGT", (args, labels, pc) =>
+            {
+                if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to IFGT.");
+                }
+
+                args.Add("3");
+                var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["BINARYIF"] : throw new Exception("Assembly instruction BINARYIF does not exist.");
+                var assemblyCode = assemblyFunction(args, labels, pc);
+                
+                return assemblyCode;
+            }
+        },
+        { "IFLE", (args, labels, pc) =>
+            {
+                if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to IFLE.");
+                }
+
+                args.Add("4");
+                var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["BINARYIF"] : throw new Exception("Assembly instruction BINARYIF does not exist.");
+                var assemblyCode = assemblyFunction(args, labels, pc);
+                
+                return assemblyCode;
+            }
+        },
+        { "IFGE", (args, labels, pc) =>
+            {
+                if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to IFGE.");
+                }
+
+                args.Add("5");
+                var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["BINARYIF"] : throw new Exception("Assembly instruction BINARYIF does not exist.");
+                var assemblyCode = assemblyFunction(args, labels, pc);
+                
+                return assemblyCode;
+            }
+        },
     };
 
 
