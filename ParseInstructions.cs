@@ -159,6 +159,24 @@ public partial class Assembler
                 return new Neg();
             }
         },
+        { "NOT", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to NOT.");
+                }
+
+                return new Not();
+            }
+        },
+        { "DUMP", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to DUMP.");
+                }
+
+                return new Dump();
+            }
+        },
         { "PRINT", (args, labels, pc) =>
             {
                 if (args.Count == 0) {

@@ -154,12 +154,12 @@ public class Neg : IInstruction {
     }
 }
 
-// public class Not : IInstruction {
-//     public Not() {}
-//     public int Encode() {
-//         return (0x3 << 28) | (0x1 << 24);
-//     }
-// }
+public class Not : IInstruction {
+    public Not() {}
+    public int Encode() {
+        return (0b0011 << 28) | (0b0001 << 24);
+    }
+}
 
 // String Print Instructions
 public class Stprint : IInstruction {
@@ -256,12 +256,12 @@ public class Print : IInstruction {
 }
 
 // Dump Instructions
-// public class Dump : IInstruction {
-//     public Dump() {}
-//     public int Encode() {
-//         return 0xe << 28;
-//     }
-// }
+public class Dump : IInstruction {
+    public Dump() {}
+    public int Encode() {
+        return 0b1110 << 28;
+    }
+}
 
 // Push Instructions
 public class Push : IInstruction {
