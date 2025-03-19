@@ -34,27 +34,27 @@ public class Input : IInstruction {
     }
 }
 
-// public class StInput : IInstruction {
-//     private readonly int _unsignedMaxChars;
-//     public StInput(int unsignedMaxChars = 0x00FFFFFF)
-//     {
-//         _unsignedMaxChars = unsignedMaxChars & 0x00FFFFFF; // Ensure only 24 bits are used.
-//     }
-//     public int Encode() {
-//         return (0x05 << 24) | _unsignedMaxChars;
-//     }
-// }
+public class StInput : IInstruction {
+    private readonly int _unsignedMaxChars;
+    public StInput(int unsignedMaxChars = 0x00FFFFFF)
+    {
+        _unsignedMaxChars = unsignedMaxChars & 0x00FFFFFF; // Ensure only 24 bits are used.
+    }
+    public int Encode() {
+        return (0b0101 << 24) | _unsignedMaxChars;
+    }
+}
 
-// public class Debug : IInstruction {
-//     private readonly int _value;
-//     public Debug(int value)
-//     {
-//         _value = value & 0x00FFFFFF; // Ensure only 24 bits are used.
-//     }
-//     public int Encode() {
-//         return (0x0F << 24) | _value;
-//     }
-// }
+public class Debug : IInstruction {
+    private readonly int _value;
+    public Debug(int value = 0)
+    {
+        _value = value & 0x00FFFFFF; // Ensure only 24 bits are used.
+    }
+    public int Encode() {
+        return (0b1111 << 24) | _value;
+    }
+}
 
 // Pop Instructions
 public class Pop : IInstruction {

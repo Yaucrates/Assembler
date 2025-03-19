@@ -364,6 +364,36 @@ public partial class Assembler
                 return new Swap(from, to);
             }
         },
+        { "STINPUT", (args, labels, pc) =>
+            {
+                if (args.Count == 0) {
+                    return new StInput();
+                }
+                else if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to STINPUT.");
+                }
+
+                string maxCharsString = args[0];
+                int maxChars = StringToDecimal(maxCharsString) ?? StringToHex(maxCharsString) ?? throw new Exception("Inproper argument passed to STINPUT.");
+
+                return new StInput(maxChars);
+            }
+        },
+        { "DEBUG", (args, labels, pc) =>
+            {
+                if (args.Count == 0) {
+                    return new Debug();
+                }
+                else if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to DEBUG.");
+                }
+
+                string valStr = args[0];
+                int val = StringToDecimal(valStr) ?? StringToHex(valStr) ?? throw new Exception("Inproper argument passed to DEBUG.");
+
+                return new Debug(val);
+            }
+        },
         // { "COMMAND", (args, labels, pc) =>
         //     {
         //         if (args.Count == 0) {
