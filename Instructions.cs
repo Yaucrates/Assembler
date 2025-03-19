@@ -14,7 +14,7 @@ public class Swap : IInstruction {
     private readonly int _to;
     public Swap(int from = 4, int to = 0) {
         _from = (from >> 2) & 0xFFF; // Should be a multiple of 4
-        _to = (_to >> 2) & 0xFFF; // Should be a multiple of 4
+        _to = (to >> 2) & 0xFFF; // Should be a multiple of 4
     }
     public int Encode() {
         return (0b0001 << 24) | (_from << 12) | _to;
@@ -72,77 +72,77 @@ public class Pop : IInstruction {
 public class Add : IInstruction {
     public Add() {}
     public int Encode() {
-        return 0x2 << 28;
+        return 0b0010 << 28;
     }
 }
 
 public class Sub : IInstruction {
     public Sub() {}
     public int Encode() {
-        return (0x2 << 28) | (0b0001 << 24);
+        return (0b0010 << 28) | (0b0001 << 24);
     }
 }
 
 public class Mul : IInstruction {
     public Mul() {}
     public int Encode() {
-        return (0x2 << 28) | (0b0010 << 24);
+        return (0b0010 << 28) | (0b0010 << 24);
     }
 }
 
 public class Div: IInstruction {
     public Div() {}
     public int Encode() {
-        return (0x2 << 28) | (0b0011 << 24);
+        return (0b0010 << 28) | (0b0011 << 24);
     }
 }
 
 public class Rem: IInstruction {
     public Rem() {}
     public int Encode() {
-        return (0x2 << 28) | (0b0100 << 24);
+        return (0b0010 << 28) | (0b0100 << 24);
     }
 }
 
 public class And: IInstruction {
     public And() {}
     public int Encode() {
-        return (0x2 << 28) | (0b0101 << 24);
+        return (0b0010 << 28) | (0b0101 << 24);
     }
 }
 
 public class Or : IInstruction {
     public Or() {}
     public int Encode() {
-        return (0x2 << 28) | (0b0110 << 24);
+        return (0b0010 << 28) | (0b0110 << 24);
     }
 }
 
 public class Xor: IInstruction {
     public Xor() {}
     public int Encode() {
-        return (0x2 << 28) | (0b0111 << 24);
+        return (0b0010 << 28) | (0b0111 << 24);
     }
 }
 
 public class Lsl : IInstruction {
     public Lsl() {}
     public int Encode() {
-        return (0x2 << 28) | (0b1000 << 24);
+        return (0b0010 << 28) | (0b1000 << 24);
     }
 }
 
 public class Lsr: IInstruction {
     public Lsr() {}
     public int Encode() {
-        return (0x2 << 28) | (0b1001 << 24);
+        return (0b0010 << 28) | (0b1001 << 24);
     }
 }
 
 public class Asr : IInstruction {
     public Asr() {}
     public int Encode() {
-        return (0x2 << 28) | (0b1011 << 24);
+        return (0b0010 << 28) | (0b1011 << 24);
     }
 }
 
@@ -176,10 +176,10 @@ public class Stprint : IInstruction {
 public class Call : IInstruction {
     private readonly int _offset;
     public Call(int offset) {
-        _offset = offset & ~3;
+        _offset = offset & 0x0FFFFFFC;
     }
     public int Encode() {
-        return (0x5 << 28) | _offset;
+        return (0b0101 << 28) | _offset;
     }
 }
 
