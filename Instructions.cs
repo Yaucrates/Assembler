@@ -1,13 +1,13 @@
 // Miscellaneous Instructions
-// public class Exit : IInstruction {
-//     private readonly int _code;
-//     public Exit(int code = 0) {
-//         _code = code & 0xFF;
-//     }
-//     public int Encode() {
-//         return _code;
-//     }
-// }
+public class Exit : IInstruction {
+    private readonly int _code;
+    public Exit(int code = 0) {
+        _code = code & 0xFF;
+    }
+    public int Encode() {
+        return _code;
+    }
+}
 
 // public class Swap : IInstruction {
 //     private readonly int _from;
@@ -23,7 +23,7 @@
 
 public class Nop : IInstruction {
     public int Encode() {
-        return 0xb0010 << 24;
+        return 0b0010 << 24;
     }
 }
 
@@ -243,17 +243,17 @@ public class UnaryIf : IInstruction {
 // }
 
 // Print Instructions
-// public class Print : IInstruction {
-//     private readonly int _offset;
-//     private readonly int _fmt;
-//     public Print(int offset, int fmt) {
-//         _offset = offset & 0x0FFFFFFC;
-//         _fmt = fmt & 0x3;
-//     }
-//     public int Encode() {
-//         return (0xd << 28) | _offset | _fmt;
-//     }
-// }
+public class Print : IInstruction {
+    private readonly int _offset;
+    private readonly int _fmt;
+    public Print(int fmt, int offset = 0) {
+        _offset = offset & 0x0FFFFFFC;
+        _fmt = fmt & 0b11;
+    }
+    public int Encode() {
+        return (0b1101 << 28) | _offset | _fmt;
+    }
+}
 
 // Dump Instructions
 // public class Dump : IInstruction {
@@ -270,6 +270,6 @@ public class Push : IInstruction {
         _val = val & 0x0FFFFFFF;
     }
     public int Encode() {
-        return (0x1111 << 28) | _val;
+        return (0b1111 << 28) | _val;
     }
 }

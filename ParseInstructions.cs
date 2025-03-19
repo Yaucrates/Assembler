@@ -89,6 +89,7 @@ public partial class Assembler
                 int? condition = StringToDecimal(args[0]);
                 string offsetStr = args[1];
                 int offset = StringToDecimal(offsetStr) ?? StringToHex(offsetStr) ?? labels[offsetStr];
+                offset -= pc;
 
                 return new UnaryIf(condition ?? throw new Exception("Bad condition passed to UNARYIF."), offset);
             }
@@ -99,7 +100,7 @@ public partial class Assembler
                     throw new Exception("Improper arguments passed to IFEZ.");
                 }
 
-                args.Insert(0, "00");
+                args.Insert(0, "0");
 
                 var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["UNARYIF"] : throw new Exception("Assembly instruction UNARYIF does not exist.");
                 var assemblyCode = assemblyFunction(args, labels, pc);
@@ -113,7 +114,7 @@ public partial class Assembler
                     throw new Exception("Improper arguments passed to IFNZ.");
                 }
 
-                args.Insert(0, "01");
+                args.Insert(0, "1");
 
                 var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["UNARYIF"] : throw new Exception("Assembly instruction UNARYIF does not exist.");
                 var assemblyCode = assemblyFunction(args, labels, pc);
@@ -127,7 +128,7 @@ public partial class Assembler
                     throw new Exception("Improper arguments passed to IFMI.");
                 }
 
-                args.Insert(0, "10");
+                args.Insert(0, "2");
 
                 var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["UNARYIF"] : throw new Exception("Assembly instruction UNARYIF does not exist.");
                 var assemblyCode = assemblyFunction(args, labels, pc);
@@ -141,7 +142,7 @@ public partial class Assembler
                     throw new Exception("Improper arguments passed to IFPL.");
                 }
 
-                args.Insert(0, "11");
+                args.Insert(0, "3");
 
                 var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["UNARYIF"] : throw new Exception("Assembly instruction UNARYIF does not exist.");
                 var assemblyCode = assemblyFunction(args, labels, pc);
@@ -156,6 +157,90 @@ public partial class Assembler
                 }
 
                 return new Neg();
+            }
+        },
+        { "PRINT", (args, labels, pc) =>
+            {
+                if (args.Count == 0) {
+                    return new Print(0b00);
+                }
+                else if (args.Count == 1) {
+                    args.Add("0");
+                }
+                else if (args.Count != 2) {
+                    throw new Exception("Improper arguments passed to PRINT.");
+                }
+
+                string stack_offset_str = args[0];
+                int stack_offset = StringToDecimal(stack_offset_str) ?? StringToHex(stack_offset_str) ?? throw new Exception("Bad Print Offset");
+
+                string fmt_str = args[1];
+                int fmt = StringToDecimal(fmt_str) ?? throw new Exception("Unknown Print Formatting");
+
+                return new Print(fmt, stack_offset);
+            }
+        },
+        { "PRINTH", (args, labels, pc) =>
+            {
+                if (args.Count == 0) {
+                    args.Add("0");
+                }
+                else if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to PRINTH.");
+                }
+
+                args.Add("1");
+                var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["PRINT"] : throw new Exception("Assembly instruction PRINT does not exist.");
+                var assemblyCode = assemblyFunction(args, labels, pc);
+                
+                return assemblyCode;
+            }
+        },
+        { "PRINTB", (args, labels, pc) =>
+            {
+                if (args.Count == 0) {
+                    args.Add("0");
+                }
+                else if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to PRINTB.");
+                }
+
+                args.Add("2");
+                var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["PRINT"] : throw new Exception("Assembly instruction PRINT does not exist.");
+                var assemblyCode = assemblyFunction(args, labels, pc);
+                
+                return assemblyCode;
+            }
+        },
+        { "PRINTO", (args, labels, pc) =>
+            {
+                if (args.Count == 0) {
+                    args.Add("0");
+                }
+                else if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to PRINTO.");
+                }
+
+                args.Add("3");
+                var assemblyFunction = INSTRUCTIONS != null ? INSTRUCTIONS["PRINT"] : throw new Exception("Assembly instruction PRINT does not exist.");
+                var assemblyCode = assemblyFunction(args, labels, pc);
+                
+                return assemblyCode;
+            }
+        },
+        { "EXIT", (args, labels, pc) =>
+            {
+                if (args.Count == 0) {
+                    return new Exit();
+                }
+                else if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to EXIT.");
+                }
+
+                string exit_code_str = args[0];
+                int exit_code = StringToDecimal(exit_code_str) ?? throw new Exception("Improper argument passed to EXIT.");
+
+                return new Exit(exit_code);
             }
         },
         // { "COMMAND", (args, labels, pc) =>
@@ -198,7 +283,7 @@ public partial class Assembler
 
                 int length = str.Length;
                 char continueChar = (char) 0x01;
-                for (int i = 0; i < instructionCount; i++) {
+                for (int i = instructionCount - 1; i >= 0; i--) {
                     int index = i * 3;
 
                     char byte1 = (index < length) ? str[index] : continueChar;
