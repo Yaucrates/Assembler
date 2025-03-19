@@ -23,16 +23,16 @@
 
 public class Nop : IInstruction {
     public int Encode() {
-        return 0x02 << 24;
+        return 0xb0010 << 24;
     }
 }
 
-// public class Input : IInstruction {
-//     public Input() {}
-//     public int Encode() {
-//         return 0x04 << 24;
-//     }
-// }
+public class Input : IInstruction {
+    public Input() {}
+    public int Encode() {
+        return 0x04 << 24;
+    }
+}
 
 // public class StInput : IInstruction {
 //     private readonly int _unsignedMaxChars;
@@ -57,16 +57,16 @@ public class Nop : IInstruction {
 // }
 
 // Pop Instructions
-// public class Pop : IInstruction {
-//     private readonly int _offset;
-//     public Pop(int offset)
-//     {
-//         _offset = offset & 0x0FFFFFFC; // Should be a multiple of 4
-//     }
-//     public int Encode() {
-//         return (0x0F << 24) | (_offset << 2);
-//     }
-// }
+public class Pop : IInstruction {
+    private readonly int _offset;
+    public Pop(int offset = 4)
+    {
+        _offset = offset & 0x0FFFFFFC; // Should be a multiple of 4
+    }
+    public int Encode() {
+        return (0b0001 << 28) | _offset;
+    }
+}
 
 // Binary Arithmetic Instructions
 // public class Add : IInstruction {
@@ -147,12 +147,12 @@ public class Nop : IInstruction {
 // }
 
 // Unary Instructions
-// public class Neg : IInstruction {
-//     public Neg() {}
-//     public int Encode() {
-//         return 0x3 << 28;
-//     }
-// }
+public class Neg : IInstruction {
+    public Neg() {}
+    public int Encode() {
+        return 0x3 << 28;
+    }
+}
 
 // public class Not : IInstruction {
 //     public Not() {}
@@ -162,15 +162,15 @@ public class Nop : IInstruction {
 // }
 
 // String Print Instructions
-// public class Stprint : IInstruction {
-//     private readonly int _offset;
-//     public Stprint(int offset) {
-//         _offset = offset & 0x0FFFFFFF;
-//     }
-//     public int Encode() {
-//         return (0x4 << 28) | _offset;
-//     }
-// }
+public class Stprint : IInstruction {
+    private readonly int _offset;
+    public Stprint(int offset = 0) {
+        _offset = offset & 0x0FFFFFFF;
+    }
+    public int Encode() {
+        return (0b0100 << 28) | _offset;
+    }
+}
 
 // Call Instructions
 // public class Call : IInstruction {
@@ -201,7 +201,7 @@ public class Goto : IInstruction {
         _offset = offset & 0x0FFFFFFF;
     }
     public int Encode() {
-        return (0x7 << 28) | _offset;
+        return (0b0111 << 28) | _offset;
     }
 }
 
@@ -219,17 +219,17 @@ public class Goto : IInstruction {
 // }
 
 // Unary If Instructions
-// public class UnaryIf : IInstruction {
-//     private readonly int _offset;
-//     private readonly int _condition;
-//     public UnaryIf(int condition, int offset) {
-//         _condition = condition & 0x3;
-//         _offset = offset & 0x01FFFFFF;
-//     }
-//     public int Encode() {
-//         return (0x9 << 28) | (_condition << 25) | _offset;
-//     }
-// }
+public class UnaryIf : IInstruction {
+    private readonly int _offset;
+    private readonly int _condition;
+    public UnaryIf(int condition, int offset) {
+        _condition = condition & 0b011;
+        _offset = offset & 0x01FFFFFF;
+    }
+    public int Encode() {
+        return (0b1001 << 28) | (_condition << 25) | _offset;
+    }
+}
 
 // Dup Instructions
 // public class Dup : IInstruction {
@@ -264,12 +264,12 @@ public class Goto : IInstruction {
 // }
 
 // Push Instructions
-// public class Push : IInstruction {
-//     private readonly int _val;
-//     public Push(int val) {
-//         _val = val & 0x0FFFFFFF;
-//     }
-//     public int Encode() {
-//         return (0xf << 28) | _val;
-//     }
-// }
+public class Push : IInstruction {
+    private readonly int _val;
+    public Push(int val = 0) {
+        _val = val & 0x0FFFFFFF;
+    }
+    public int Encode() {
+        return (0x1111 << 28) | _val;
+    }
+}

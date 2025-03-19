@@ -18,3 +18,21 @@ Pseudoinstruction will complicate pass 1 since it adds instructions
 Comments start with a pound
 
 All leading and trailing whitespace must be trimmed
+
+## Pass 2
+
+Idc it was super simple
+
+## Stpush Pseudo-Instruction
+
+Expands to multiple push instructions
+
+Null terminator should be added by default
+
+Three escapes are supported: \\\\, \\", \\n
+
+Also, the push instruction pushes in little-endian, therefore, your instruction must swap them to be in the right order.
+
+**stprint**:
+- should print it exactly
+- prints stack top to bottom, aka, LAST THING PUSHED IS THE FIRST THING READ
