@@ -232,15 +232,15 @@ public class UnaryIf : IInstruction {
 }
 
 // Dup Instructions
-// public class Dup : IInstruction {
-//     private readonly int _offset;
-//     public Dup(int offset) {
-//         _offset = offset & ~3;
-//     }
-//     public int Encode() {
-//         return (0xc << 28) | _offset;
-//     }
-// }
+public class Dup : IInstruction {
+    private readonly int _offset;
+    public Dup(int offset) {
+        _offset = offset & 0x0FFF_FFFC;
+    }
+    public int Encode() {
+        return (0b1100 << 28) | _offset;
+    }
+}
 
 // Print Instructions
 public class Print : IInstruction {

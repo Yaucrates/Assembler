@@ -412,6 +412,18 @@ public partial class Assembler
                 return new Debug(val);
             }
         },
+        { "DUP", (args, labels, pc) =>
+            {
+                if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to DUP.");
+                }
+
+                string sroStr = args[0];
+                int sro = StringToDecimal(sroStr) ?? StringToHex(sroStr) ?? throw new Exception("Inproper argument passed to DUP.");
+
+                return new Dup(sro);
+            }
+        },
         // { "COMMAND", (args, labels, pc) =>
         //     {
         //         if (args.Count == 0) {
