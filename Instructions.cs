@@ -9,17 +9,17 @@ public class Exit : IInstruction {
     }
 }
 
-// public class Swap : IInstruction {
-//     private readonly int _from;
-//     private readonly int _to;
-//     public Swap(int from = 4, int to = 0) {
-//         _from = (from >> 2) & 0xFFF; // Should be a multiple of 4
-//         _to = (_to >> 2) & 0xFFF; // Should be a multiple of 4
-//     }
-//     public int Encode() {
-//         return (0x01 << 24) | (_from << 12) | _to;
-//     }
-// }
+public class Swap : IInstruction {
+    private readonly int _from;
+    private readonly int _to;
+    public Swap(int from = 4, int to = 0) {
+        _from = (from >> 2) & 0xFFF; // Should be a multiple of 4
+        _to = (_to >> 2) & 0xFFF; // Should be a multiple of 4
+    }
+    public int Encode() {
+        return (0b0001 << 24) | (_from << 12) | _to;
+    }
+}
 
 public class Nop : IInstruction {
     public int Encode() {

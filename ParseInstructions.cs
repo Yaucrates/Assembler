@@ -342,6 +342,28 @@ public partial class Assembler
                 return new Asr();
             }
         },
+        { "SWAP", (args, labels, pc) =>
+            {
+                if (args.Count == 0) {
+                    args.Add("4");
+                    args.Add("0");
+                }
+                else if (args.Count == 1) {
+                    args.Add("0");
+                }
+                else if (args.Count != 2) {
+                    throw new Exception("Improper arguments passed to SWAP.");
+                }
+
+                string fromStr = args[0];
+                int from = StringToDecimal(fromStr) ?? StringToHex(fromStr) ?? throw new Exception("Improper argument passed to SWAP.");
+                
+                string toStr = args[1];
+                int to = StringToDecimal(toStr) ?? StringToHex(toStr) ?? throw new Exception("Improper argument passed to SWAP.");
+
+                return new Swap(from, to);
+            }
+        },
         // { "COMMAND", (args, labels, pc) =>
         //     {
         //         if (args.Count == 0) {

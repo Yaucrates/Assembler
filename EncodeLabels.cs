@@ -42,7 +42,7 @@ public partial class Assembler
             return INSTRUCTION_SIZE;
         }
 
-        string arg = instruction.Substring(7);
+        string arg = ProcessLine( instruction.Substring(7) );
         if (arg[0] != '\"' || arg[^1] != '\"')
         {
             throw new Exception("usage: stpush \"string\"");
