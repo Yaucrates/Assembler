@@ -243,6 +243,105 @@ public partial class Assembler
                 return new Exit(exit_code);
             }
         },
+        { "ADD", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to ADD.");
+                }
+
+                return new Add();
+            }
+        },
+        { "SUB", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to SUB.");
+                }
+
+                return new Sub();
+            }
+        },
+        { "MUL", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to MUL.");
+                }
+
+                return new Mul();
+            }
+        },
+        { "DIV", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to DIV.");
+                }
+
+                return new Div();
+            }
+        },
+        { "REM", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to REM.");
+                }
+
+                return new Rem();
+            }
+        },
+        { "AND", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to AND.");
+                }
+
+                return new And();
+            }
+        },
+        { "OR", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to OR.");
+                }
+
+                return new Or();
+            }
+        },
+        { "XOR", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to XOR.");
+                }
+
+                return new Xor();
+            }
+        },
+        { "LSL", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to LSL.");
+                }
+
+                return new Lsl();
+            }
+        },
+        { "LSR", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to LSR.");
+                }
+
+                return new Lsr();
+            }
+        },
+        { "ASR", (args, labels, pc) =>
+            {
+                if (args.Count != 0) {
+                    throw new Exception("Improper arguments passed to ASR.");
+                }
+
+                return new Asr();
+            }
+        },
         // { "COMMAND", (args, labels, pc) =>
         //     {
         //         if (args.Count == 0) {
@@ -321,14 +420,14 @@ public partial class Assembler
         while (line != "")
         {
             bool isString = line[0] == '"';
-            int startOfArg = isString ? 1 : 0;
             int endOfArg = isString ? GetEndingQuote(line) : line.IndexOf(' ');
             if (endOfArg == -1) {
                 args.Add(line);
                 break;
             }
 
-            string arg = line.Substring(startOfArg, isString ? endOfArg - 1 : endOfArg);
+            string arg = line.Substring(0, isString ? endOfArg + 1 : endOfArg);
+            arg = isString ? ProcessSpecialCharacters(arg) : arg;
             args.Add(arg);
 
             line = ProcessLine( line.Substring(endOfArg + 1) );

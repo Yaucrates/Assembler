@@ -69,82 +69,82 @@ public class Pop : IInstruction {
 }
 
 // Binary Arithmetic Instructions
-// public class Add : IInstruction {
-//     public Add() {}
-//     public int Encode() {
-//         return 0x2 << 28;
-//     }
-// }
+public class Add : IInstruction {
+    public Add() {}
+    public int Encode() {
+        return 0x2 << 28;
+    }
+}
 
-// public class Sub : IInstruction {
-//     public Sub() {}
-//     public int Encode() {
-//         return (0x2 << 28) | (0x1 << 24);
-//     }
-// }
+public class Sub : IInstruction {
+    public Sub() {}
+    public int Encode() {
+        return (0x2 << 28) | (0b0001 << 24);
+    }
+}
 
-// public class Mul : IInstruction {
-//     public Mul() {}
-//     public int Encode() {
-//         return (0x2 << 28) | (0x2 << 24);
-//     }
-// }
+public class Mul : IInstruction {
+    public Mul() {}
+    public int Encode() {
+        return (0x2 << 28) | (0b0010 << 24);
+    }
+}
 
-// public class Div: IInstruction {
-//     public Div() {}
-//     public int Encode() {
-//         return (0x2 << 28) | (0x3 << 24);
-//     }
-// }
+public class Div: IInstruction {
+    public Div() {}
+    public int Encode() {
+        return (0x2 << 28) | (0b0011 << 24);
+    }
+}
 
-// public class Rem: IInstruction {
-//     public Rem() {}
-//     public int Encode() {
-//         return (0x2 << 28) | (0x4 << 24);
-//     }
-// }
+public class Rem: IInstruction {
+    public Rem() {}
+    public int Encode() {
+        return (0x2 << 28) | (0b0100 << 24);
+    }
+}
 
-// public class And: IInstruction {
-//     public And() {}
-//     public int Encode() {
-//         return (0x2 << 28) | (0x5 << 24);
-//     }
-// }
+public class And: IInstruction {
+    public And() {}
+    public int Encode() {
+        return (0x2 << 28) | (0b0101 << 24);
+    }
+}
 
-// public class Or : IInstruction {
-//     public Or() {}
-//     public int Encode() {
-//         return (0x2 << 28) | (0x6 << 24);
-//     }
-// }
+public class Or : IInstruction {
+    public Or() {}
+    public int Encode() {
+        return (0x2 << 28) | (0b0110 << 24);
+    }
+}
 
-// public class Xor: IInstruction {
-//     public Xor() {}
-//     public int Encode() {
-//         return (0x2 << 28) | (0x7 << 24);
-//     }
-// }
+public class Xor: IInstruction {
+    public Xor() {}
+    public int Encode() {
+        return (0x2 << 28) | (0b0111 << 24);
+    }
+}
 
-// public class Lsl : IInstruction {
-//     public Lsl() {}
-//     public int Encode() {
-//         return (0x2 << 28) | (0x8 << 24);
-//     }
-// }
+public class Lsl : IInstruction {
+    public Lsl() {}
+    public int Encode() {
+        return (0x2 << 28) | (0b1000 << 24);
+    }
+}
 
-// public class Lsr: IInstruction {
-//     public Lsr() {}
-//     public int Encode() {
-//         return (0x2 << 28) | (0x9 << 24);
-//     }
-// }
+public class Lsr: IInstruction {
+    public Lsr() {}
+    public int Encode() {
+        return (0x2 << 28) | (0b1001 << 24);
+    }
+}
 
-// public class Asr : IInstruction {
-//     public Asr() {}
-//     public int Encode() {
-//         return (0x2 << 28) | (0xb << 24);
-//     }
-// }
+public class Asr : IInstruction {
+    public Asr() {}
+    public int Encode() {
+        return (0x2 << 28) | (0b1011 << 24);
+    }
+}
 
 // Unary Instructions
 public class Neg : IInstruction {
