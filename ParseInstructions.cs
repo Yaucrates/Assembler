@@ -424,6 +424,33 @@ public partial class Assembler
                 return new Dup(sro);
             }
         },
+        { "RET", (args, labels, pc) =>
+            {
+                if (args.Count == 0) {
+                    return new Ret();
+                }
+                else if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to RET.");
+                }
+
+                string soStr = args[0];
+                int so = StringToDecimal(soStr) ?? throw new Exception("Inproper argument passed to RET.");
+
+                return new Ret(so);
+            }
+        },
+        { "CALL", (args, labels, pc) =>
+            {
+                if (args.Count != 1) {
+                    throw new Exception("Improper arguments passed to CALL.");
+                }
+
+                string label = args[0];
+                int offset = labels[label] - pc;
+
+                return new Call(offset);
+            }
+        },
         // { "COMMAND", (args, labels, pc) =>
         //     {
         //         if (args.Count == 0) {

@@ -173,26 +173,26 @@ public class Stprint : IInstruction {
 }
 
 // Call Instructions
-// public class Call : IInstruction {
-//     private readonly int _offset;
-//     public Call(int offset) {
-//         _offset = offset & ~3;
-//     }
-//     public int Encode() {
-//         return (0x5 << 28) | _offset;
-//     }
-// }
+public class Call : IInstruction {
+    private readonly int _offset;
+    public Call(int offset) {
+        _offset = offset & ~3;
+    }
+    public int Encode() {
+        return (0x5 << 28) | _offset;
+    }
+}
 
 // Return Instructions
-// public class Ret : IInstruction {
-//     private readonly int _offset;
-//     public Ret(int offset = 0) {
-//         _offset = offset & ~3;
-//     }
-//     public int Encode() {
-//         return (0x6 << 28) | _offset;
-//     }
-// }
+public class Ret : IInstruction {
+    private readonly int _offset;
+    public Ret(int offset = 0) {
+        _offset = offset & ~0b11;
+    }
+    public int Encode() {
+        return (0b0110 << 28) | _offset;
+    }
+}
 
 // Unconditional Goto Instructions
 public class Goto : IInstruction {
