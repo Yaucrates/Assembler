@@ -1,5 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-
 public partial class Assembler
 {
     private static readonly Dictionary<string, Func<List<string>, Dictionary<string, int>, int, IInstruction>> INSTRUCTIONS =
